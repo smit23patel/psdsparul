@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!{% endblock %}</title>
+    <!-- Use dynamic url_for if you want, but sticking to /static/ is fine too -->
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Load Material Icons for a modern feel -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Flipkart Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/"><i>Flipkart</i><span class="explore-plus">Explore <span>Plus</span><img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/plus-brand-bc165b.svg" width="10" alt=""></span></a>
+            </div>
+            
+            <div class="search-bar">
+                <form action="/search" method="GET" style="display: flex; width: 100%;">
+                    <input type="text" name="q" placeholder="Search for products, brands and more" aria-label="Search" value="{{ search_query or '' }}">
+                    <button type="submit" aria-label="Search button"><i class="material-icons">search</i></button>
+                </form>
+            </div>
+
+            <div class="nav-links">
+                {% if session.get('user') %}
+                    <a href="/logout" class="nav-btn">Logout</a>
+                {% else %}
+                    <a href="/login" class="nav-btn login-btn">Login</a>
+                {% endif %}
+                <a href="#" class="nav-btn">Become a Seller</a>
+                <a href="#" class="nav-btn dropdown">More <i class="material-icons">expand_more</i></a>
+                <a href="/cart" class="nav-btn cart-btn"><i class="material-icons">shopping_cart</i> Cart</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Flipkart Clone. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

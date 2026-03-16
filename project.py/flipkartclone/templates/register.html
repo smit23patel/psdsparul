@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Register - Flipkart{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-sidebar">
+        <h2>Looks like you're new here!</h2>
+        <p>Sign up with your mobile number to get started</p>
+        <div class="auth-sidebar-img">
+            <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/login_img_c4a81e.png" alt="Register">
+        </div>
+    </div>
+    <div class="auth-content">
+        <form action="/register" method="POST" class="auth-form">
+            <div class="auth-input-group">
+                <input type="text" name="username" id="username" required>
+                <label for="username">Enter Email/Mobile number</label>
+            </div>
+            <div class="auth-input-group">
+                <input type="password" name="password" id="password" required>
+                <label for="password">Enter Password</label>
+            </div>
+            
+            <button type="submit" class="auth-submit-btn">Continue</button>
+        </form>
+        <div class="auth-links">
+            <a href="/login">Existing User? Log in</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

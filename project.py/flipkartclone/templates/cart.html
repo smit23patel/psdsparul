@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Shopping Cart | Flipkart.com{% endblock %}
+
+{% block content %}
+<div class="cart-layout">
+    <div class="cart-left">
+        <div class="cart-box">
+            <div class="cart-header">
+                <h3>Flipkart ({{products|length}})</h3>
+            </div>
+            
+            {% if products %}
+                {% for p in products %}
+                <div class="cart-item">
+                    <div class="cart-item-img">
+                        <img src="{{p.image}}" alt="{{p.name}}">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">{{p.name}}</div>
+                        <div class="cart-item-seller" style="font-size: 14px; color: #878787;">Seller: SuperComNet</div>
+                        <div class="cart-item-price">
+                            <span class="original-price" style="font-size:14px; color:#878787; text-decoration:line-through;">₹{{ '{:,.0f}'.format(p.price * 1.25) }}</span>
+                            <span class="price">₹{{ '{:,.0f}'.format(p.price) }}</span>
+                            <span class="discount" style="color: #388e3c;">20% Off</span>
+                        </div>
+                        <div class="cart-item-actions" style="margin-top: 15px; border-top: 1px solid #f0f0f0; padding-top: 15px;">
+                            <a href="/remove/{{p.id}}" style="font-size: 16px; font-weight: 500; color: #212121; cursor: pointer; text-decoration: none;">REMOVE</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-cart">
+                    <img src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" width="200" alt="Empty Cart">
+                    <h3 style="font-weight:400; font-size:18px;">Missing Cart items?</h3>
+                    <p style="font-size: 12px; margin-bottom:20px;">Login to see the items you added previously</p>
+                    <a href="/login" style="background:#fb641b; color:#fff; padding: 10px 40px; border-radius:2px; font-weight:500;">Login</a>
+                </div>
+            {% endif %}
+            
+        </div>
+    </div>
+
+    {% if products %}
+    <div class="cart-right">
+        <div class="cart-box">
+            <div class="cart-header" style="border-bottom: 1px solid #f0f0f0;">
+                <h3 style="color: #878787; font-size:16px; text-transform:uppercase;">Price Details</h3>
+            </div>
+            <div class="cart-summary">
+                <div class="cart-summary-row">
+                    <span>Price ({{products|length}} items)</span>
+                    <span>₹{{ '{:,.0f}'.format(products | sum(attribute='price') * 1.25) }}</span>
+                </div>
+                <div class="cart-summary-row" style="color: #388e3c;">
+                    <span>Discount</span>
+                    <span>− ₹{{ '{:,.0f}'.format(products | sum(attribute='price') * 0.25) }}</span>
+                </div>
+                <div class="cart-summary-row">
+                    <span>Delivery Charges</span>
+                    <span style="color: #388e3c;">Free</span>
+                </div>
+                
+                <div class="cart-total-row">
+                    <span>Total Amount</span>
+                    <span>₹{{ '{:,.0f}'.format(products | sum(attribute='price')) }}</span>
+                </div>
+                <div style="color: #388e3c; font-weight: 500; font-size: 14px; margin-top: 16px;">
+                    You will save ₹{{ '{:,.0f}'.format(products | sum(attribute='price') * 0.25) }} on this order
+                </div>
+            </div>
+            <div style="padding: 16px; background: #fff; border-top: 1px dashed #e0e0e0; display:flex; justify-content:flex-end;">
+                <a href="/checkout" style="text-decoration: none;">
+                    <button class="checkout-btn" style="width: auto; padding: 16px 40px; border: none; cursor: pointer;">Place Order</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
